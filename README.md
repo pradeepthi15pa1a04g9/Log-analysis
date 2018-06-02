@@ -27,14 +27,20 @@ In this project I was tasked to create a reporting tool which can print reports 
 
 #### Launching the Virtual Machine:
   1. Launch the Vagrant VM inside Vagrant sub-directory in the downloaded fullstack-nanodegree-vm repository using command:
+  '''
     $ vagrant up
+  '''
   2. Then Log into this using command:
+  '''
     $ vagrant ssh
+  '''
   3. Change directory to /vagrant and look around with ls.
   
 #### Setting up the database:
  Load the data in local database using the command:
+  '''
     psql -d news -f newsdata.sql
+  '''
     
 #### Running the Program:
 1. Within the VM, navigate to 'cd /vagrant'
