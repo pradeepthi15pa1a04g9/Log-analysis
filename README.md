@@ -50,3 +50,19 @@ In this project I was tasked to create a reporting tool which can print reports 
 3. Connect to the database '\c  news'
 4. Enter the views listed above
 5. Exit 'psql'
+
+
+#### Creating Views:
+View 1:
+```
+create view top_articles_views as select title,author,count(title) as views from articles,log where log.path like concat('%',articles.slug) group by articles.title,articles.author order by views desc;
+```
+
+View 2:
+```
+create view top_authors_views as select name,count(articles.author) as views from articles,authors,log where log.path like concat('%',articles.slug) and articles.author=authors.id group by authors.name order by views desc;
+```
+View 3:
+```
+create view error_log_view as select date(time),round(100.0*sum(case log.status when '200 OK' then 0 else 1 end)/count(log.status),2) as "Percent Error" from log group by date(time) order by "Percent Error" desc;
+```
