@@ -27,9 +27,9 @@ In this project I was tasked to create a reporting tool which can print reports 
 
 #### Launching the Virtual Machine:
   1. Launch the Vagrant VM inside Vagrant sub-directory in the downloaded fullstack-nanodegree-vm repository using command:
-  '''
+ ```
     $ vagrant up
-  '''
+  ```
   2. Then Log into this using command:
   '''
     $ vagrant ssh
