@@ -68,7 +68,7 @@ create view error_log_views as select date(time),round(100.0*sum(case log.status
 ```
 
 #### To Run:
-  1. From the vagrant directory inside the virtual machine,run logs.py using:
+  1. From the vagrant directory inside the virtual machine,run log.py using:
   ```
     $ python log.py
   ```
