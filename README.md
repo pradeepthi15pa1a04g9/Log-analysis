@@ -53,16 +53,22 @@ In this project I was tasked to create a reporting tool which can print reports 
 
 
 #### Creating Views:
-View 1:
+View 1:top_articles_views
 ```
 create view top_articles_views as select title,author,count(title) as views from articles,log where log.path like concat('%',articles.slug) group by articles.title,articles.author order by views desc;
 ```
 
-View 2:
+View 2:top_authors_views
 ```
 create view top_authors_views as select name,count(articles.author) as views from articles,authors,log where log.path like concat('%',articles.slug) and articles.author=authors.id group by authors.name order by views desc;
 ```
-View 3:
+View 3:error_log_views
 ```
-create view error_log_view as select date(time),round(100.0*sum(case log.status when '200 OK' then 0 else 1 end)/count(log.status),2) as "Percent Error" from log group by date(time) order by "Percent Error" desc;
+create view error_log_views as select date(time),round(100.0*sum(case log.status when '200 OK' then 0 else 1 end)/count(log.status),2) as "Percent Error" from log group by date(time) order by "Percent Error" desc;
 ```
+
+#### To Run:
+  1. From the vagrant directory inside the virtual machine,run logs.py using:
+  ```
+    $ python log.py
+  ```
