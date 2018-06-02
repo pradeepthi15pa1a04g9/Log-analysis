@@ -45,8 +45,8 @@ In this project I was tasked to create a reporting tool which can print reports 
   ```
     
 #### Running the Program:
-1. Within the VM, navigate to 'cd /vagrant'
+1. Within the VM, navigate to 'cd  /vagrant'
 2. Run 'psql'
-3. Connect to the database '\c news'
+3. Connect to the database '\c  news'
 4. Enter the views listed above
 5. Exit 'psql'
