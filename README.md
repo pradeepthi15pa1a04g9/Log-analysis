@@ -75,6 +75,7 @@ create view error_requests as select count(*) as total, date(time) as day from l
 View 5:errors_percent
 ```
 create view errors_percent as select total_requests.day, round((100.0*error_requests.total)/total_requests.total,2) as percentage from error_requests, total_requests where error_requests.day=total_requests.day;
+```
 
 #### To Run:
   1. From the vagrant directory inside the virtual machine,run log.py using:
