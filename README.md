@@ -62,10 +62,19 @@ View 2:top_authors_views
 ```
 create view top_authors_views as select name,count(articles.author) as views from articles,authors,log where log.path like concat('%',articles.slug) and articles.author=authors.id group by authors.name order by views desc;
 ```
-View 3:error_log_views
+View 3:total_requests
 ```
-create view error_log_views as select date(time),round(100.0*sum(case log.status when '200 OK' then 0 else 1 end)/count(log.status),2) as "Percent Error" from log group by date(time) order by "Percent Error" desc;
+create view total_requests as select count(*) as total, date(time) as day from log group by day order by day desc;
 ```
+
+View 4:error_requests
+```
+create view error_requests as select count(*) as total, date(time) as day from log where status != '200 OK' group by day order by total desc;
+```
+
+View 5:errors_percent
+```
+create view errors_percent as select total_requests.day, round((100.0*error_requests.total)/total_requests.total,2) as percentage from error_requests, total_requests where error_requests.day=total_requests.day;
 
 #### To Run:
   1. From the vagrant directory inside the virtual machine,run log.py using:
