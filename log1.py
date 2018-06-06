@@ -9,20 +9,16 @@ def popular_articles():
     print("THE POPULAR ARTICLES ARE:")
     cur.execute("select title,views from top_articles_views limit 3")
     result = cur.fetchall()
-    i = 0
-    while i < len(result):
+    for i, value in enumerate(result):
         print (str(result[i]) + "views")
-        i = i+1
 
 
 def popular_authors():
     print("THE POPULAR AUTHORS ARE:")
     cur.execute("select * from top_authors_views ")
     result = cur.fetchall()
-    i = 0
-    while i < len(result):
+    for i, value in enumerate(result):
         print (str(result[i]) + "views")
-        i = i+1
 
 
 def error_percentage():
@@ -40,4 +36,3 @@ popular_authors()
 error_percentage()
 cur.close()
 conn.close()
-
