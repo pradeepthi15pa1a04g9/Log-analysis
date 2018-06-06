@@ -1,19 +1,8 @@
-#! /usr/bin/env
-#PROJECT:-LOG ANALYSIS
+#!/usr/bin/env python
+# PROJECT:-LOG ANALYSIS
 import psycopg2
 conn = psycopg2.connect(dbname="news")
 cur = conn.cursor()
-print("create successfully")
-try:
-    q1 = '''create view top_articles_views as select title, author,
-            count(title) as views from articles, log
-            where log.path like concat('%', articles.slug)
-            group by articles.title, articles.author
-            order by views desc;
-         '''
-    print("view created")
-except:
-    print("unsuccessful")
 
 
 def popular_articles():
@@ -26,18 +15,6 @@ def popular_articles():
         i = i+1
 
 
-try:
-    q2 = '''create view top_authors_views as select name,
-            count(articles.author) as views from articles, authors, log
-            where log.path like concat('%', articles.slug) and
-            articles.author=authors.id group by authors.name
-            order by views desc;
-         '''
-    print("view created")
-except:
-    print("unsuccessful")
-
-
 def popular_authors():
     print("THE POPULAR AUTHORS ARE:")
     cur.execute("select * from top_authors_views ")
@@ -46,24 +23,6 @@ def popular_authors():
     while i < len(result):
         print (str(result[i]) + "views")
         i = i+1
-
-
-try:
-    q3 = '''create view total_requests as select count(*) as total,
-            date(time) as day from log group by day order by day desc;
-         '''
-    q4 = '''create view error_requests as select count(*) as total,
-            date(time) as day from log where status != '200 OK'
-            group by day order by total desc;
-         '''
-    q5 = '''create view errors_percent as select total_requests.day,
-            round((100.0*error_requests.total)/total_requests.total,2)
-            as percentage from error_requests, total_requests
-            where error_requests.day=total_requests.day;
-         '''
-    print("view created")
-except:
-    print("unsuccessful")
 
 
 def error_percentage():
