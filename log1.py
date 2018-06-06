@@ -40,3 +40,4 @@ popular_authors()
 error_percentage()
 cur.close()
 conn.close()
+
