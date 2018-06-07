@@ -55,48 +55,48 @@ In this project I was tasked to create a reporting tool which can print reports 
 #### Creating Views:                                                                              
 View 1:top_articles_views                                
 ```                                                                        
-create view top_articles_views as                                                  
-select title,author,count(title) as views                                                  
-from articles,log                                                                     
-where log.path like concat('%',articles.slug)                                                
-group by articles.title,articles.author                                 
-order by views                               
-desc;                                                
+CREATE view top_articles_views AS                                                  
+SELECT title,author,count(title) AS views                                                  
+FROM articles,log                                                                     
+WHERE log.path like concat('%',articles.slug)                                                
+GROUP BY articles.title,articles.author                                 
+ORDER BY views                               
+DESC;                                                
 ```                                                              
 View 2:top_authors_views                                                    
 ```                                                                                                               
-create view top_authors_views as                                                    
-select name,count(articles.author) as views                                                   
-from articles,authors,log                                                               
-where log.path like concat('%',articles.slug) and articles.author=authors.id                                   
-group by authors.name                                                             
-order by views                                                         
-desc;                                                           
+CREATE view top_authors_views AS                                                    
+SELECT name,count(articles.author) AS views                                                   
+FROM articles,authors,log                                                               
+WHERE log.path like concat('%',articles.slug) and articles.author=authors.id                                   
+GROUP BY authors.name                                                             
+ORDER BY views                                                         
+DESC;                                                           
 ```
 View 3:total_requests                                                                         
 ```                               
-create view total_requests as                                            
-select count(*) as total, date(time) as day                                                     
-from log                                                  
-group by day                                                     
-order by day                                
-desc;                               
+CREATE view total_requests AS                                            
+SELECT count(*) as total, date(time) AS day                                                     
+FROM log                                                  
+GROUP BY day                                                     
+ORDER BY day                                
+DESC;                               
 ```                                                   
 View 4:error_requests                                                                              
 ```                                                                         
-create view error_requests as                         
-select count(*) as total, date(time) as day                                        
-from log where status != '200 OK'                                        
-group by day                            
-order by total                              
-desc;
+CREATE view error_requests AS                         
+SELECT count(*) as total, date(time) AS day                                        
+FROM log where status != '200 OK'                                        
+GROUP BY day                            
+ORDER BY total                              
+DESC;
 ```                                                                   
 View 5:errors_percent                                               
 ```                                                                
-create view errors_percent as                                                 
-select total_requests.day, round((100.0*error_requests.total)/total_requests.total,2) as percentage             
-from error_requests, total_requests                                                   
-where error_requests.day=total_requests.day;
+CREATE view errors_percent AS                                                
+SELECT total_requests.day, round((100.0*error_requests.total)/total_requests.total,2) AS percentage             
+FROM error_requests, total_requests                                                   
+WHERE error_requests.day=total_requests.day;
 ```                                                            
 #### To Run:                                                            
   1. From the vagrant directory inside the virtual machine,run log.py using:
